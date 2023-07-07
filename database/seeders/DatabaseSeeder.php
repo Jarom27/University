@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $user->name = "Jarom Mariscal";
         $user->email="admin@admin.com";
         $user->password = Hash::make("admin");
+        $user->state = "Activo";
         $user->assignRole("Administrador");
         $user->save();
     }
