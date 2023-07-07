@@ -50,8 +50,8 @@
                         </td>
                         <td>
                             {{-- <x-adminlte-button label="Open Modal"  class="btn btn-link"/> --}}
-                            <button data-toggle="modal" data-target="#editPermisoModal">
-                                <span><img src="{{public_path("icons/edit.svg")}}"></span>
+                            <button data-toggle="modal" data-target="#editPermisoModal" class="edit-button" id="{{$user->id}}">
+                                <span><img id="{{$user->id}}" src="{{public_path("icons/edit.svg")}}"></span>
                             </button>
                         </td>
                     </tr>
@@ -103,8 +103,15 @@
         </div>
         
     </div>
-    
-    
+   <script>
+        let editButtons = document.querySelectorAll(".edit-button");
+        editButtons.forEach(button => {
+            button.addEventListener("click",e =>{
+                console.log(e.target);
+            });
+        });
+        console.log("Hola");
+    </script> 
 @stop
 
 @section('css')

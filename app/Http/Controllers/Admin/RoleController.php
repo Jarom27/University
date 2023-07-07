@@ -50,7 +50,7 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        
+        return $user = User::all()->find($id);
     }
 
     /**
@@ -82,10 +82,6 @@ class RoleController extends Controller
             redirect()->route("permisos.index")->with("status","Usuario actualizado exitosamente");
         }
         redirect()->route("permisos.index")->with("status","No se actualizo el usuario");
-        
-        
-        
-        
     }
 
     /**

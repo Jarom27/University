@@ -31,5 +31,7 @@ class DatabaseSeeder extends Seeder
         $user->state = "Activo";
         $user->assignRole("Administrador");
         $user->save();
+
+        User::factory(50)->create();
     }
 }
