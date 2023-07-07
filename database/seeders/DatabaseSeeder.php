@@ -32,6 +32,10 @@ class DatabaseSeeder extends Seeder
         $user->assignRole("Administrador");
         $user->save();
 
-        User::factory(50)->create();
+        $users = User::factory(50)->create();
+
+        foreach($users as $person){
+            $person->assignRole(fake()->randomElement(["Administrador","Maestro","Estudiante"]));
+        }
     }
 }
