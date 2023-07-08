@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -13,7 +14,8 @@ class TeacherController extends Controller
     public function index()
     {
         //
-        return view("admin.teachers.index");
+        $users = User::role('Maestro')->get();
+        return view("admin.teachers.index")->with(compact("users"));
     }
 
     /**

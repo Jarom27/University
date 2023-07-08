@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
         $user->email="admin@admin.com";
         $user->password = Hash::make("admin");
         $user->state = "Activo";
+        $user->address = "Paseo del Torreon 257";
+        $user->birthday = "2000-10-1";
         $user->assignRole("Administrador");
         $user->save();
 
@@ -36,6 +38,7 @@ class DatabaseSeeder extends Seeder
 
         foreach($users as $person){
             $person->assignRole(fake()->randomElement(["Administrador","Maestro","Estudiante"]));
+            
         }
     }
 }
