@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Course;
+use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -35,10 +38,16 @@ class DatabaseSeeder extends Seeder
         $user->save();
 
         $users = User::factory(50)->create();
-
+        Course::factory(10)->create();
         foreach($users as $person){
             $person->assignRole(fake()->randomElement(["Administrador","Maestro","Estudiante"]));
-            
+            if($person->hasRole("Maestro")){
+                Teacher::factory(1)->for($person)->create();
+            }
+            else if($person->hasRole("Estudiante")){
+                Student::factory(1)->for($person)->create();
+            }
         }
+
     }
 }

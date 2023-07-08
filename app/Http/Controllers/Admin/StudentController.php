@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Teacher;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class TeacherController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class TeacherController extends Controller
     public function index()
     {
         //
-        $users = Teacher::all();
-        return view("admin.teachers.index")->with(compact("users"));
+        $users = Student::all();
+        return view("admin.alumnos.index")->with(compact("users"));
     }
 
     /**

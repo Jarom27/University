@@ -1,16 +1,16 @@
 @extends("adminlte::page")
 
-@section('title', 'Maestros')
+@section('title', 'Alumnos')
 
 @section('content')
     @php
         $heads = [
             '#',
+            "DNI",
             'Nombre',
             'Email',
             'Direccion',
             'Fec. de Nacimiento',
-            ['label' => 'Clase Asignada', 'width' => 20],
             ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         ];
 
@@ -20,13 +20,14 @@
     
     <div class="card">
         <div class="card-header">
-            <h3>Informacion de Permisos</h2>
+            <h3>Lista de Alumnos</h2>
         </div>
         <div class="card-body">
             <x-adminlte-datatable id="table1" :heads="$heads">
                 @foreach($users as $user)
                     <tr>
                         <td>{{$user->id}}</td>
+                        <td>{{$user->DNI}}</td>
                         <td>{{$user->user->name}}</td>
                         <td>
                            {{$user->user->email}}
@@ -38,11 +39,7 @@
                             {{$user->user->birthday}}
                         </td>
                         <td>
-                            @if(count($user->courses) == 0)
-                                <span class="badge badge-warning">Sin Asignacion</span>
-                            @else
-                                {{$user->courses->course_name}}
-                            @endif
+                            
                         </td>
                         <td>
                             {{-- <x-adminlte-button label="Open Modal"  class="btn btn-link"/> --}}
