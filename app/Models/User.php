@@ -46,4 +46,7 @@ class User extends Authenticatable
     public function adminlte_desc(){
         return "Admin";
     }
+    public function student(){
+        return $this->hasOne(Student::class);
+    }
 }

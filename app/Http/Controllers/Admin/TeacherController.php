@@ -25,6 +25,7 @@ class TeacherController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
@@ -33,6 +34,7 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -49,6 +51,8 @@ class TeacherController extends Controller
     public function edit(string $id)
     {
         //
+        $user = Teacher::where("id",$id)->first();
+        return view("admin.alumnos.edit",compact("user"));
     }
 
     /**
@@ -57,6 +61,21 @@ class TeacherController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            "name" => "required",
+            "lastname" => "required",
+            "email" => ["required","email"],
+            "address" => "required",
+            "birthday" => "required",
+        ]);
+        $student = Teacher::where("id",$id)->first();
+        $student->user()->name = $request->name;
+        $student->user()->lastname = $request->lastname;
+        $student->user()->address = $request->address;
+        $student->user()->birthday = $request->birthday;
+        $student->save();
+        echo "Exito";
+        redirect()->route("maestros.index");
     }
 
     /**
@@ -65,5 +84,8 @@ class TeacherController extends Controller
     public function destroy(string $id)
     {
         //
+        $user = Teacher::where("id",$id)->first();
+        $user->delete();
+        redirect()->route("maestros.index");
     }
 }

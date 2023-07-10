@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -25,6 +26,7 @@ class StudentController extends Controller
     public function create()
     {
         //
+        return view("admin.alumnos.add");
     }
 
     /**
@@ -33,6 +35,32 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            "dni" => "required",
+            "name" => "required",
+            "lastname" => "required",
+            "email" => ["required","email"],
+            "address" => "required",
+            "birthday" => "required",
+        ]);
+        $user = new User();
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $user->password = Hash::make("password");
+        $user->lastname = $request->lastname;
+        $user->address = $request->address;
+        $user->birthday = $request->birthday;
+        $user->state = "Activo";
+        $user->assignRole("Estudiante");
+        $user->save();
+        $student = new Student();
+        $student->DNI = $request->DNI;
+        $user->student()->associate($student);
+        $student->save();
+        
+        
+        echo "Exito";
+        redirect()->route("alumnos.index");
     }
 
     /**
@@ -41,6 +69,7 @@ class StudentController extends Controller
     public function show(string $id)
     {
         //
+        redirect()->route("alumnos.index");
     }
 
     /**
@@ -49,6 +78,8 @@ class StudentController extends Controller
     public function edit(string $id)
     {
         //
+        $user = Student::where("id",$id)->first();
+        return view("admin.alumnos.edit",compact("user"));
     }
 
     /**
@@ -57,6 +88,24 @@ class StudentController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            "dni" => "required",
+            "name" => "required",
+            "lastname" => "required",
+            "email" => ["required","email"],
+            "address" => "required",
+            "birthday" => "required",
+        ]);
+        $student = Student::where("id",$id)->first();
+        $student->DNI = $request->dni;
+        $student->user()->name = $request->name;
+        $student->user()->lastname = $request->lastname;
+        $student->user()->address = $request->address;
+        $student->user()->birthday = $request->birthday;
+        $student->save();
+        echo "Exito";
+        redirect()->route("alumnos.index");
+
     }
 
     /**
@@ -65,5 +114,8 @@ class StudentController extends Controller
     public function destroy(string $id)
     {
         //
+        $user = Student::where("id",$id)->first();
+        $user->delete();
+        redirect()->route("alumnos.index");
     }
 }

@@ -13,7 +13,7 @@
             'Email/Usuario',
             ['label' => 'Permiso', 'width' => 20],
             ['label' => 'Estado', 'width' => 20],
-            ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
+            ['label' => 'Acciones', 'no-export' => true, 'width' => 20],
         ];
 
     @endphp
@@ -29,7 +29,7 @@
                 @foreach($users as $user)
                     <tr>
                         <td>{{$user->id}}</td>
-                        <td>{{$user->name}}</td>
+                        <td>{{$user->name." ".$user->lastname}}</td>
                         <td>
                             @if ($user->hasRole("Administrador"))
                                 <span class="badge badge-warning">Administrador</span>
@@ -50,8 +50,11 @@
                         </td>
                         <td>
                             {{-- <x-adminlte-button label="Open Modal"  class="btn btn-link"/> --}}
-                            <button data-toggle="modal" data-target="#editPermisoModal" class="edit-button" id="{{$user->id}}">
-                                <span><img id="{{$user->id}}" src="{{public_path("icons/edit.svg")}}"></span>
+                            <button data-toggle="modal" data-target="#editPermisoModal" class="edit-button btn" id="{{$user->id}}">
+                                <span><img id="{{$user->id}}" src="{{asset("icons/edit.svg")}}"></span>
+                            </button>
+                            <button data-toggle="modal" data-target="#editPermisoModal" class="edit-button btn" id="{{$user->id}}">
+                                <span><img id="{{$user->id}}" src="{{asset("icons/trash.svg")}}"></span>
                             </button>
                         </td>
                     </tr>

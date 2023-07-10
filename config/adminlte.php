@@ -306,7 +306,8 @@ return [
         [
             "text" => "Permisos",
             "url" => "admin/permisos",
-            "icon" => "bi bi-person-fill-gear"
+            "icon" => "bi bi-person-fill-gear",
+            "active" => ["admin"]
         ],
         [
             'text' => 'Maestros',

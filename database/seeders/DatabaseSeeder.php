@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
 
         $user = new User();
-        $user->name = "Jarom Mariscal";
+        $user->name = "Jarom";
+        $user->lastname = "Mariscal";
         $user->email="admin@admin.com";
         $user->password = Hash::make("admin");
         $user->state = "Activo";

@@ -1,16 +1,18 @@
 @extends("adminlte::page")
 
-@section('title', 'Alumnos')
+@section('title', 'Clases')
+
+@section('content_header')
+    <h1>Lista de Clases</h1>
+@stop
 
 @section('content')
     @php
         $heads = [
             '#',
-            "DNI",
-            'Nombre',
-            'Email',
-            'Direccion',
-            'Fec. de Nacimiento',
+            "Clase",
+            'Maestro',
+            'Alumnos Inscritos',
             ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
         ];
 
@@ -20,32 +22,24 @@
     
     <div class="card">
         <div class="card-header">
-            <h3>Lista de Alumnos</h2>
+            <h3>Informacion de Clases</h2>
         </div>
         <div class="card-body">
             <x-adminlte-datatable id="table1" :heads="$heads">
-                @foreach($users as $user)
+                @foreach($courses as $course)
                     <tr>
-                        <td>{{$user->id}}</td>
-                        <td>{{$user->DNI}}</td>
-                        <td>{{$user->user->name}}</td>
+                        <td>{{$course->id}}</td>
+                        <td>{{$course->course_name}}</td>
                         <td>
-                           {{$user->user->email}}
+                            @if(count($course->teachers) == 0)
+                                <span class="badge badge-warning">Sin Asignacion</span>
+
+                            @else
+                                {{$course->teachers->user->name}}
+                            @endif
                         </td>
                         <td>
-                            {{$user->user->address}}
-                        </td>
-                        <td>
-                            {{$user->user->birthday}}
-                        </td>
-                        <td>
-                            
-                        </td>
-                        <td>
-                            {{-- <x-adminlte-button label="Open Modal"  class="btn btn-link"/> --}}
-                            <button data-toggle="modal" data-target="#editPermisoModal" class="edit-button" id="{{$user->id}}">
-                                <span><img id="{{$user->id}}" src="{{public_path("icons/edit.svg")}}"></span>
-                            </button>
+                            {{count($course->students)}}
                         </td>
                     </tr>
                 @endforeach
