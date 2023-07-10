@@ -1,9 +1,9 @@
 @extends("adminlte::page")
 
-@section('title', 'Alumnos')
+@section('title', 'Maestros')
 
 @section('content_header')
-    <h1>Informacion de Alumno</h1>
+    <h1>Informacion de Maestro</h1>
 @stop
 
 @section('content')
@@ -12,7 +12,7 @@
     
     <div class="card">
         <div class="card-header">
-            <h3>Editar Maestro</h3>
+            <h3>Añadir Maestro</h3>
         </div>
         <div class="card-body">
             <form action="{{route("maestros.store")}}" method="POST">
@@ -39,7 +39,7 @@
                 </div>
                 
                 <a href="{{route("maestros.index")}}" class="btn btn-secondary">Cancelar</a>
-                <input type="submit" name="submit" class="btn btn-primary" value="Editar">
+                <input type="submit" name="submit" class="btn btn-primary" value="Añadir">
                 
             </form>
         </div>

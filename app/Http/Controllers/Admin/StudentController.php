@@ -55,12 +55,10 @@ class StudentController extends Controller
         $user->save();
         $student = new Student();
         $student->DNI = $request->DNI;
-        $user->student()->associate($student);
+        $student->user()->associate($user);
         $student->save();
         
-        
-        echo "Exito";
-        redirect()->route("alumnos.index");
+        redirect()->back();
     }
 
     /**
@@ -98,11 +96,12 @@ class StudentController extends Controller
         ]);
         $student = Student::where("id",$id)->first();
         $student->DNI = $request->dni;
-        $student->user()->name = $request->name;
-        $student->user()->lastname = $request->lastname;
-        $student->user()->address = $request->address;
-        $student->user()->birthday = $request->birthday;
+        $student->user->name = $request->name;
+        $student->user->lastname = $request->lastname;
+        $student->user->address = $request->address;
+        $student->user->birthday = $request->birthday;
         $student->save();
+        $student->user->save();
         echo "Exito";
         redirect()->route("alumnos.index");
 
@@ -114,8 +113,10 @@ class StudentController extends Controller
     public function destroy(string $id)
     {
         //
-        $user = Student::where("id",$id)->first();
+        $student = Student::where("id",$id)->first();
+        $user = User::where("id",$student->user->id);
+        $student->delete();
         $user->delete();
-        redirect()->route("alumnos.index");
+        redirect()->back();
     }
 }

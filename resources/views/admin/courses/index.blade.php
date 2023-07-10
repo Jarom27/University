@@ -13,7 +13,7 @@
             "Clase",
             'Maestro',
             'Alumnos Inscritos',
-            ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
+            ['label' => 'Acciones', 'no-export' => true, 'width' => 10],
         ];
 
     @endphp
@@ -22,7 +22,10 @@
     
     <div class="card">
         <div class="card-header">
-            <h3>Informacion de Clases</h2>
+            <div class="d-flex justify-content-between">
+                <h3>Informacion de Clases</h3>
+                <a href="{{route("clases.create")}}" class="btn btn-primary">Añadir Clase</a>
+            </div>
         </div>
         <div class="card-body">
             <x-adminlte-datatable id="table1" :heads="$heads">
@@ -35,7 +38,7 @@
                                 <span class="badge badge-warning">Sin Asignacion</span>
 
                             @else
-                                {{$course->teachers->user->name}}
+                                {{$course->teachers->user->name." ".$course->teachers->user->lastname}}
                             @endif
                         </td>
                         <td>

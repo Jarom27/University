@@ -55,7 +55,7 @@
                 </div>
                 
                 <a href="{{route("alumnos.index")}}" class="btn btn-secondary">Cancelar</a>
-                <input type="submit" name="submit" class="btn btn-primary" value="Editar">
+                <input type="submit" name="submit" class="btn btn-primary" value="Añadir">
                 
             </form>
         </div>

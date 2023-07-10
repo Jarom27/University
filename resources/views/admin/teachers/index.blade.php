@@ -22,8 +22,12 @@
     
     <div class="card">
         <div class="card-header">
-            <h3>Informacion de Maestros</h2>
+            <div class="d-flex justify-content-between">
+                <h3>Informacion de Maestros</h3>
+                <a href="{{route("maestros.create")}}" class="btn btn-primary">Añadir Maestro</a>
+            </div>
         </div>
+        
         <div class="card-body">
             <x-adminlte-datatable id="table1" :heads="$heads">
                 @foreach($users as $user)
