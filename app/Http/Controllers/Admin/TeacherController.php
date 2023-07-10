@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\CourseTeacher;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -74,8 +76,11 @@ class TeacherController extends Controller
     public function edit(string $id)
     {
         //
+        $courses = Course::where("available","1")->get();
+        // $course_teachers = CourseTeacher::all();
         $user = Teacher::where("id",$id)->first();
-        return view("admin.teachers.edit",compact("user"));
+        
+        return view("admin.teachers.edit",compact("user"))->with("courses",$courses);
     }
 
     /**
@@ -90,13 +95,31 @@ class TeacherController extends Controller
             "email" => ["required","email"],
             "address" => "required",
             "birthday" => "required",
+            "course" => "required"
         ]);
         $teacher = Teacher::where("id",$id)->first();
+        //Si esta asignado lo elimina para añadirlo a otro.
+        if(CourseTeacher::where("teacher_id",$teacher->id)->exists()){
+            $course_teacher = CourseTeacher::where("teacher_id",$teacher->id)->first();
+            $course = Course::find($course_teacher->id);
+            $course->available = true;
+            $course->save();
+            $course_teacher->delete();
+        }
+        
         $teacher->user->name = $request->name;
         $teacher->user->lastname = $request->lastname;
         $teacher->user->address = $request->address;
         $teacher->user->birthday = $request->birthday;
         $teacher->user->save();
+        
+        if($request->course != "Sin Asignar"){
+            $course = Course::where("course_name",$request->course)->first();
+            $course->available = false;
+            $teacher->courses()->attach($course->id);
+            $course->save();
+            
+        }
         echo "Exito";
         redirect()->route("maestros.index");
        

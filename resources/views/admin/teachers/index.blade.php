@@ -47,7 +47,7 @@
                             @if(count($user->courses) == 0)
                                 <span class="badge badge-warning">Sin Asignacion</span>
                             @else
-                                {{$user->courses->course_name}}
+                                {{$user->courses[0]->course_name}}
                             @endif
                         </td>
                         <td>

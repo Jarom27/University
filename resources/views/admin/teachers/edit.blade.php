@@ -37,6 +37,18 @@
                     <label for="edit-birthday">Fecha de Nacimiento: </label>
                     <input type="date" name="birthday" id="edit-birthday" class="form-control" value="{{$user->user->birthday}}">
                 </div>
+                <div class="form-group mb-3">
+                    
+                    <select name="course" id="edit-clase" class="form-control">
+                            <option value="Sin asignar">Sin Asignar</option>
+                        @foreach($courses as $course)
+                            <option value="{{$course->course_name}}">{{$course->course_name}}</option>
+                        @endforeach
+                            
+
+                    </select>
+
+                </div>
                 
                 <a href="{{route("maestros.index")}}" class="btn btn-secondary">Cancelar</a>
                 <input type="submit" name="submit" class="btn btn-primary" value="Editar">

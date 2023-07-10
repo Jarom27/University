@@ -47,9 +47,6 @@
                             {{$user->user->birthday}}
                         </td>
                         <td>
-                            
-                        </td>
-                        <td>
                             {{-- <x-adminlte-button label="Open Modal"  class="btn btn-link"/> --}}
                             <div class="d-flex justify-content-center">
                                 <a href="{{route("alumnos.edit",$user->id)}}" class="btn btn-primary">Editar</a>
