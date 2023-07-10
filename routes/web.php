@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Student\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::group(['middleware' => ['role:Estudiante']], function () {
+    Route::get("/alumno",HomeController::class);
+   
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
