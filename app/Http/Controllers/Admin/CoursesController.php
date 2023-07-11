@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class CoursesController extends Controller
@@ -23,6 +24,14 @@ class CoursesController extends Controller
     public function create()
     {
         //
+        $teachers = Teacher::all();
+        $teachers_filtered = array();
+        foreach($teachers as $teacher){
+            if(count($teacher->courses) == 0){
+                array_push($teachers_filtered, $teacher);
+            }
+        }       
+        return view("admin.courses.add")->with("teachers",$teachers_filtered);
     }
 
     /**
@@ -47,6 +56,7 @@ class CoursesController extends Controller
     public function edit(string $id)
     {
         //
+
     }
 
     /**
@@ -63,5 +73,10 @@ class CoursesController extends Controller
     public function destroy(string $id)
     {
         //
+        $course = Course::find($id);
+        if(count($course->teachers) == 0){
+            $course->delete();
+        }
+        return redirect()->route("clases.index");
     }
 }

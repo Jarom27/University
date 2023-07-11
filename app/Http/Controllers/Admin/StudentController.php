@@ -58,7 +58,7 @@ class StudentController extends Controller
         $student->user()->associate($user);
         $student->save();
         
-        redirect()->back();
+        return redirect()->route("alumnos.index");
     }
 
     /**
@@ -102,8 +102,7 @@ class StudentController extends Controller
         $student->user->birthday = $request->birthday;
         $student->save();
         $student->user->save();
-        echo "Exito";
-        redirect()->route("alumnos.index");
+        return redirect()->route("alumnos.index");
 
     }
 
@@ -117,6 +116,6 @@ class StudentController extends Controller
         $user = User::where("id",$student->user->id);
         $student->delete();
         $user->delete();
-        redirect()->back();
+        return redirect()->route("alumnos.index");
     }
 }

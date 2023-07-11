@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
@@ -17,5 +18,11 @@ class RoleSeeder extends Seeder
         $rol2 = Role::create(["name" => "Maestro"]);
         $rol3 = Role::create(["name" => "Estudiante"]);
         
+        $p1 = Permission::create(["name" => "manage-permisos"]);
+        $p2 = Permission::create(["name" => "manage-alumnos"]);
+        $p3 = Permission::create(["name" => "manage-maestros"]);
+        $p4 = Permission::create(["name" => "manage->cursos"]);
+
+        $rol1->syncPermissions([$p1,$p2,$p3,$p4]);
     }
 }

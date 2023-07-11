@@ -50,7 +50,9 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        return $user = User::all()->find($id);
+        $user = User::find($id);
+        $roles = Role::all();
+        return view("admin.permisos.edit")->with(compact("user"))->with(compact("roles"));
     }
 
     /**
@@ -62,7 +64,6 @@ class RoleController extends Controller
         $request->validate([
             "email" => ["required","email"],
             "role" => "required",
-            "state" => "required"
         ]);
         $user = User::all()->find($id);
         $user->email = $request->email;
@@ -77,11 +78,15 @@ class RoleController extends Controller
             }
         }
         if($role_exists){
+            $roles = $user->getRoleNames();
+            foreach($roles as $rol){
+                $user->removeRole($rol);
+            }
             $user->assignRole($request->role);
             $user->save();
             redirect()->route("permisos.index")->with("status","Usuario actualizado exitosamente");
         }
-        redirect()->route("permisos.index")->with("status","No se actualizo el usuario");
+        return redirect()->route("permisos.index")->with("status","No se actualizo el usuario");
     }
 
     /**

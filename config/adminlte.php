@@ -306,8 +306,7 @@ return [
         [
             "text" => "Permisos",
             "url" => "admin/permisos",
-            "icon" => "bi bi-person-fill-gear",
-            "active" => ["admin"]
+            "icon" => "fa user-gear",
         ],
         [
             'text' => 'Maestros',
@@ -325,6 +324,10 @@ return [
             'icon' => 'fas fa-fw fa-share',
 
         ],
+        [
+            'text' => 'Alumnos',
+            'url' => "maestro/alumnos"
+        ]
         
     ],
 

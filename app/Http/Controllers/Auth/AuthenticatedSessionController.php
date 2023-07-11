@@ -34,10 +34,10 @@ class AuthenticatedSessionController extends Controller
         if($user->hasRole("Administrador")){
             return redirect()->intended("/admin/");
         }
-        if($user->hasRole("Maestro")){
+        else if($user->hasRole("Maestro")){
             return redirect()->intended("/maestro/");
         }
-        if($user->hasRole("Estudiante")){
+        else if($user->hasRole("Estudiante")){
             return redirect()->intended("/alumno/");
         }
         
@@ -54,6 +54,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

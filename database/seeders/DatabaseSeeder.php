@@ -39,14 +39,15 @@ class DatabaseSeeder extends Seeder
         $user->save();
 
         $users = User::factory(50)->create();
-        Course::factory(10)->create();
+        $courses = Course::factory(10)->create();
         foreach($users as $person){
             $person->assignRole(fake()->randomElement(["Administrador","Maestro","Estudiante"]));
             if($person->hasRole("Maestro")){
-                Teacher::factory(1)->for($person)->create();
+                $teacher = Teacher::factory(1)->for($person)->create();
             }
             else if($person->hasRole("Estudiante")){
-                Student::factory(1)->for($person)->create();
+                $student = Student::factory(1)->for($person)->create();
+                
             }
         }
 

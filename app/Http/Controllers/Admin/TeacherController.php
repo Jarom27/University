@@ -58,7 +58,7 @@ class TeacherController extends Controller
         $teacher->user()->associate($user);
         $teacher->save();
         
-        redirect()->back();
+        return redirect()->route("maestros.index");
 
     }
 
@@ -120,8 +120,8 @@ class TeacherController extends Controller
             $course->save();
             
         }
-        echo "Exito";
-        redirect()->route("maestros.index");
+        echo "<a href ='".route("maestros.index")."'>redireccionar</a>";
+        return redirect()->route("maestros.index");
        
     }
 
@@ -135,6 +135,6 @@ class TeacherController extends Controller
         $user = User::where("id",$teacher->user->id);
         $teacher->delete();
         $user->delete();
-        redirect()->back();
+        return redirect()->route("maestros.index");
     }
 }
