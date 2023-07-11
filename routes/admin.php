@@ -14,6 +14,6 @@
         Route::resource("alumnos",StudentController::class);
         Route::resource("clases",CoursesController::class);
     });
-    
 
+    
 ?>

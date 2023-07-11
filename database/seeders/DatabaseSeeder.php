@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
         $maestro->state = "Activo";
         $maestro->address = fake()->streetAddress();
         $maestro->birthday = fake()->date();
+        $maestro->assignRole("Maestro");
         $maestro->save();
 
         Teacher::factory(1)->for($maestro)->create();
@@ -58,6 +59,7 @@ class DatabaseSeeder extends Seeder
         $alumno->state = "Activo";
         $alumno->address = fake()->streetAddress();
         $alumno->birthday = fake()->date();
+        $alumno->assignRole("Estudiante");
         $alumno->save();
         Student::factory(1)->for($alumno)->create();
 

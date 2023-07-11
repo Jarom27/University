@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Student\CalificacionesController;
+use App\Http\Controllers\Student\CursosController;
 use App\Http\Controllers\Student\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,12 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::group(['middleware' => ['role:Estudiante']], function () {
     Route::get("/alumno",HomeController::class);
+    Route::resource('/calificaciones',CalificacionesController::class);
+    Route::resource('cursos',CursosController::class);
    
 });
 

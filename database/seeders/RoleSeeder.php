@@ -29,6 +29,6 @@ class RoleSeeder extends Seeder
        
         $rol1->syncPermissions([$p1,$p2,$p3,$p4]);
         $rol2->syncPermissions([$p5]);
-        $rol2->syncPermissions([$p6,$p7]);
+        $rol3->syncPermissions([$p6,$p7]);
     }
 }

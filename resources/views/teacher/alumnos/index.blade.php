@@ -3,7 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    @if(count($teacher->courses)!=0)
+        <h1>Alumnos de la clase de {{$teacher->courses[0]->course_name}}</h1>
+    @else
+        <h1>No tiene una clase asignada aún</h1>
+    @endif
 @stop
 
 @section('content')
@@ -19,46 +23,34 @@
 @endphp
 
     {{-- Minimal example / fill data using the component slot --}}
-    
+    @if(count($teacher->courses)!= 0)
     <div class="card">
         <div class="card-header">
-            <div class="d-flex justify-content-between">
-                <h3>Informacion de Alumnos</h3>
-                <a href="{{route("alumnos.create")}}" class="btn btn-primary">Añadir Alumno</a>
-            </div>
-            
+            <h3>Alumnos de la clase {{$teacher->courses[0]->course_name}}</h3>
         </div>
+        
     <div class="card-body">
+        @if(count($alumnos) == 0)
+                <p>No hay alumnos inscritos a está clase aún</p>
+        @else
         <x-adminlte-datatable id="table1" :heads="$heads">
-            @foreach($users as $user)
-                <tr>
-                    <td>{{$user->id}}</td>
-                    <td>{{$user->DNI}}</td>
-                    <td>{{$user->user->name." ".$user->user->lastname}}</td>
-                    <td>
-                        {{$user->user->email}}
-                    </td>
-                    <td>
-                        {{$user->user->address}}
-                    </td>
-                    <td>
-                        {{$user->user->birthday}}
-                    </td>
-                    <td>
-                        {{-- <x-adminlte-button label="Open Modal"  class="btn btn-link"/> --}}
-                        <div class="d-flex justify-content-center">
-                            <a href="{{route("alumnos.edit",$user->id)}}" class="btn btn-primary">Editar</a>
-                            <form action="{{route("alumnos.destroy",$user->id)}}" method="post">
-                                @method("DELETE")
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                            </form>
-                        </div>
-                        
-                    </td>
-                </tr>
-            @endforeach
+                @foreach($alumnos as $user)
+                    <tr>
+                        <td>{{$user->id}}</td>
+                        <td>{{$user->user->name." ".$user->user->lastname}}</td>
+                        <td>
+                            {{$user->calificacion}}
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                @endforeach
+            
         </x-adminlte-datatable>
+        @endif
     </div>
     
 @stop
@@ -70,3 +62,4 @@
 @section('js')
     <script> console.log('Hi!'); </script>
 @stop
+@endif

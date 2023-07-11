@@ -40,6 +40,17 @@ class CoursesController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate(["nombre" => "required","teacher"]);
+        $course = new Course();
+        $course->course_name = $request->nombre;
+        $course->save();
+        foreach(Teacher::all() as $teacher){
+            if($request->teacher == $teacher->user->name." ".$teacher->user->lastname){
+                $course->teachers()->attach($teacher->id);
+                return redirect()->route("clases.index");
+            }
+        }
+
     }
 
     /**
@@ -56,7 +67,15 @@ class CoursesController extends Controller
     public function edit(string $id)
     {
         //
-
+        $course = Course::find($id);
+        $teachers = Teacher::all();
+        $teachers_filtered = array();
+        foreach($teachers as $teacher){
+            if(count($teacher->courses) == 0){
+                array_push($teachers_filtered, $teacher);
+            }
+        }       
+        return view("admin.courses.edit")->with(compact("course"))->with("teachers",$teachers_filtered);
     }
 
     /**
@@ -65,6 +84,19 @@ class CoursesController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate(["nombre" => "required","teacher"]);
+        $course = Course::find($id);
+        $course->course_name = $request->nombre;
+        $course->save();
+        if(count($course->teachers) != 0){
+            $course->teachers()->detach($course->teachers[0]->id);
+        }
+        $teacher = Teacher::find($id);
+        if(count($teacher->courses) == 0){
+            $course->teachers()->attach($teacher->id);
+        }
+        return redirect()->route("clases.index");
+        
     }
 
     /**

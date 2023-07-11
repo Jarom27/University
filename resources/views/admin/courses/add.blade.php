@@ -20,10 +20,10 @@
                     <input type="text" name="nombre" class="form-control" id="edit-nombre" value="">
                 </div>
                 <div class="form-group mb-3">
-                    <select name="course" id="edit-clase" class="form-control">
+                    <select name="teacher" id="edit-clase" class="form-control">
                         <option value="Sin asignar">Sin Asignar</option>
                         @foreach($teachers as $teacher)
-                            <option value="{{$teacher->id}}">{{$teacher->user->name." ".$teacher->user->lastname}}</option>
+                            <option value="{{$teacher->user->name." ".$teacher->user->lastname}}">{{$teacher->user->name." ".$teacher->user->lastname}}</option>
                         @endforeach
                     </select>
                 </div>

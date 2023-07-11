@@ -307,26 +307,41 @@ return [
             "text" => "Permisos",
             "url" => "admin/permisos",
             "icon" => "fa user-gear",
+            "can" => "manage-permisos"
         ],
         [
             'text' => 'Maestros',
             'url'  => 'admin/maestros',
             'icon' => 'fas fa-fw fa-user',
+            "can" => "manage-maestros"
         ],
         [
             'text' => 'Alumnos',
             'url'  => 'admin/alumnos',
             'icon' => 'fas fa-fw fa-lock',
+            "can" => "manage-alumnos"
         ],
         [
             'text' => 'Clases',
             'url' => 'admin/clases',
             'icon' => 'fas fa-fw fa-share',
+            "can" => "manage-cursos"
 
         ],
         [
             'text' => 'Alumnos',
-            'url' => "maestro/alumnos"
+            'url' => "maestro/alumnos",
+            "can" => "listado-alumno"
+        ],
+        [
+            'text' => 'Ver Calificaciones',
+            'url' => "calificaciones",
+            "can" => "ver-calificaciones"
+        ],
+        [
+            'text' => 'Administrar Cursos',
+            'url' => "cursos",
+            "can" => "administrar-cursos"
         ]
         
     ],
