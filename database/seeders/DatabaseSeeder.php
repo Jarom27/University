@@ -38,6 +38,29 @@ class DatabaseSeeder extends Seeder
         $user->assignRole("Administrador");
         $user->save();
 
+        $maestro = new User();
+        $maestro->email = "maestro@maestro.com";
+        $maestro->password = Hash::make("maestro");
+        $maestro->name = fake()->firstName();
+        $maestro->lastname = fake()->lastName();
+        $maestro->state = "Activo";
+        $maestro->address = fake()->streetAddress();
+        $maestro->birthday = fake()->date();
+        $maestro->save();
+
+        Teacher::factory(1)->for($maestro)->create();
+
+        $alumno = new User();
+        $alumno->email = "alumno@alumno.com";
+        $alumno->password = Hash::make("alumno");
+        $alumno->name = fake()->firstName();
+        $alumno->lastname = fake()->lastName();
+        $alumno->state = "Activo";
+        $alumno->address = fake()->streetAddress();
+        $alumno->birthday = fake()->date();
+        $alumno->save();
+        Student::factory(1)->for($alumno)->create();
+
         $users = User::factory(50)->create();
         $courses = Course::factory(10)->create();
         foreach($users as $person){

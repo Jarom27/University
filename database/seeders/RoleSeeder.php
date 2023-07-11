@@ -21,8 +21,14 @@ class RoleSeeder extends Seeder
         $p1 = Permission::create(["name" => "manage-permisos"]);
         $p2 = Permission::create(["name" => "manage-alumnos"]);
         $p3 = Permission::create(["name" => "manage-maestros"]);
-        $p4 = Permission::create(["name" => "manage->cursos"]);
+        $p4 = Permission::create(["name" => "manage-cursos"]);
 
+        $p5 = Permission::create(["name"=> "listado-alumno"]);
+        $p6 = Permission::create(["name" => "ver-calificaciones"]);
+        $p7 = Permission::create(["name"=> "administrar-cursos"]);
+       
         $rol1->syncPermissions([$p1,$p2,$p3,$p4]);
+        $rol2->syncPermissions([$p5]);
+        $rol2->syncPermissions([$p6,$p7]);
     }
 }
